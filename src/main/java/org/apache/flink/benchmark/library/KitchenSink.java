@@ -36,6 +36,8 @@ extends RMatAlgorithmRunner {
 
 	private static final int EDGE_FACTOR = 8;
 
+	private static final double DAMPING_FACTOR = 0.85;
+
 	private static final int ITERATIONS = 10;
 
 	@Override
@@ -72,19 +74,31 @@ extends RMatAlgorithmRunner {
 				// clustering
 
 				directedGraph
+					.run(new org.apache.flink.graph.library.clustering.directed.AverageClusteringCoefficient<>());
+
+				directedGraph
 					.run(new org.apache.flink.graph.library.clustering.directed.GlobalClusteringCoefficient<>());
 
 				new ChecksumHashCode().run(directedGraph
 					.run(new org.apache.flink.graph.library.clustering.directed.LocalClusteringCoefficient<>()));
 
+				directedGraph
+					.run(new org.apache.flink.graph.library.clustering.directed.TriadicCensus<>());
+
 				new ChecksumHashCode().run(directedGraph
 					.run(new org.apache.flink.graph.library.clustering.directed.TriangleListing<>()));
+
+				undirectedGraph
+					.run(new org.apache.flink.graph.library.clustering.undirected.AverageClusteringCoefficient<>());
 
 				undirectedGraph
 					.run(new org.apache.flink.graph.library.clustering.undirected.GlobalClusteringCoefficient<>());
 
 				new ChecksumHashCode().run(undirectedGraph
 					.run(new org.apache.flink.graph.library.clustering.undirected.LocalClusteringCoefficient<>()));
+
+				undirectedGraph
+					.run(new org.apache.flink.graph.library.clustering.undirected.TriadicCensus<>());
 
 				new ChecksumHashCode().run(undirectedGraph
 					.run(new org.apache.flink.graph.library.clustering.undirected.TriangleListing<>()));
@@ -93,6 +107,9 @@ extends RMatAlgorithmRunner {
 
 				new ChecksumHashCode().run(directedGraph
 					.run(new org.apache.flink.graph.library.link_analysis.HITS<>(ITERATIONS)));
+
+				new ChecksumHashCode().run(directedGraph
+					.run(new org.apache.flink.graph.library.link_analysis.PageRank<>(DAMPING_FACTOR, ITERATIONS)));
 
 				// metric
 

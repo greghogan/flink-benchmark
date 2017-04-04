@@ -30,6 +30,7 @@ import org.apache.flink.benchmark.library.JaccardIndex;
 import org.apache.flink.benchmark.library.KitchenSink;
 import org.apache.flink.benchmark.library.LocalClusteringCoefficientDirected;
 import org.apache.flink.benchmark.library.LocalClusteringCoefficientUndirected;
+import org.apache.flink.benchmark.library.PageRank;
 import org.apache.flink.benchmark.library.TriangleListingDirected;
 import org.apache.flink.benchmark.library.TriangleListingUndirected;
 import org.apache.flink.client.program.ProgramInvocationException;
@@ -65,6 +66,7 @@ public class Runner {
 		AVAILABLE_ALGORITHMS.put("KitchenSink".toLowerCase(), KitchenSink.class);
 		AVAILABLE_ALGORITHMS.put("LocalClusteringCoefficientDirected".toLowerCase(), LocalClusteringCoefficientDirected.class);
 		AVAILABLE_ALGORITHMS.put("LocalClusteringCoefficientUndirected".toLowerCase(), LocalClusteringCoefficientUndirected.class);
+		AVAILABLE_ALGORITHMS.put("PageRank".toLowerCase(), PageRank.class);
 		AVAILABLE_ALGORITHMS.put("TriangleListingDirected".toLowerCase(), TriangleListingDirected.class);
 		AVAILABLE_ALGORITHMS.put("TriangleListingUndirected".toLowerCase(), TriangleListingUndirected.class);
 	}
