@@ -21,12 +21,12 @@ package org.apache.flink.benchmark.library;
 import org.apache.commons.math3.random.JDKRandomGenerator;
 import org.apache.flink.api.java.DataSet;
 import org.apache.flink.api.java.ExecutionEnvironment;
-import org.apache.flink.benchmark.utils.ChecksumHashCode;
 import org.apache.flink.graph.Graph;
+import org.apache.flink.graph.asm.dataset.ChecksumHashCode;
 import org.apache.flink.graph.asm.simple.directed.Simplify;
-import org.apache.flink.graph.asm.translate.translators.LongValueToUnsignedIntValue;
-import org.apache.flink.graph.asm.translate.translators.LongValueToStringValue;
 import org.apache.flink.graph.asm.translate.TranslateGraphIds;
+import org.apache.flink.graph.asm.translate.translators.LongValueToStringValue;
+import org.apache.flink.graph.asm.translate.translators.LongValueToUnsignedIntValue;
 import org.apache.flink.graph.generator.RMatGraph;
 import org.apache.flink.graph.generator.random.JDKRandomGeneratorFactory;
 import org.apache.flink.graph.generator.random.RandomGenerableFactory;
@@ -91,7 +91,8 @@ extends RMatAlgorithmRunner {
 
 		// TODO: verify checksum
 
-		new ChecksumHashCode<>(env, tl)
-			.execute(env, "TriangleListingDirected s" + scale + "e" + EDGE_FACTOR + tag);
+		new ChecksumHashCode()
+			.run(tl)
+			.execute("TriangleListingDirected s" + scale + "e" + EDGE_FACTOR + tag);
 	}
 }

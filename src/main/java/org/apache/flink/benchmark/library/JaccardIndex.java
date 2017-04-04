@@ -21,19 +21,17 @@ package org.apache.flink.benchmark.library;
 import org.apache.commons.math3.random.JDKRandomGenerator;
 import org.apache.flink.api.java.DataSet;
 import org.apache.flink.api.java.ExecutionEnvironment;
-import org.apache.flink.benchmark.utils.ChecksumHashCode;
 import org.apache.flink.graph.Graph;
+import org.apache.flink.graph.asm.dataset.ChecksumHashCode;
 import org.apache.flink.graph.asm.simple.undirected.Simplify;
-import org.apache.flink.graph.asm.translate.translators.LongValueToUnsignedIntValue;
-import org.apache.flink.graph.asm.translate.translators.LongValueToStringValue;
 import org.apache.flink.graph.asm.translate.TranslateGraphIds;
+import org.apache.flink.graph.asm.translate.translators.LongValueToStringValue;
+import org.apache.flink.graph.asm.translate.translators.LongValueToUnsignedIntValue;
 import org.apache.flink.graph.generator.RMatGraph;
 import org.apache.flink.graph.generator.random.JDKRandomGeneratorFactory;
 import org.apache.flink.graph.generator.random.RandomGenerableFactory;
-import org.apache.flink.types.IntValue;
 import org.apache.flink.types.LongValue;
 import org.apache.flink.types.NullValue;
-import org.apache.flink.types.StringValue;
 
 public class JaccardIndex
 extends RMatAlgorithmRunner {
@@ -88,7 +86,8 @@ extends RMatAlgorithmRunner {
 
 		// TODO: verify checksum
 
-		new ChecksumHashCode<>(env, ji)
-			.execute(env, "JaccardIndex s" + scale + "e" + EDGE_FACTOR + tag);
+		new ChecksumHashCode<>()
+			.run(ji)
+			.execute("JaccardIndex s" + scale + "e" + EDGE_FACTOR + tag);
 	}
 }

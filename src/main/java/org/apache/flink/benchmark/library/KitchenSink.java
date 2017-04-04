@@ -20,10 +20,10 @@ package org.apache.flink.benchmark.library;
 
 import org.apache.commons.math3.random.JDKRandomGenerator;
 import org.apache.flink.api.java.ExecutionEnvironment;
-import org.apache.flink.benchmark.utils.ChecksumHashCode;
 import org.apache.flink.graph.Graph;
-import org.apache.flink.graph.asm.translate.translators.LongValueToUnsignedIntValue;
+import org.apache.flink.graph.asm.dataset.ChecksumHashCode;
 import org.apache.flink.graph.asm.translate.TranslateGraphIds;
+import org.apache.flink.graph.asm.translate.translators.LongValueToUnsignedIntValue;
 import org.apache.flink.graph.generator.RMatGraph;
 import org.apache.flink.graph.generator.random.JDKRandomGeneratorFactory;
 import org.apache.flink.graph.generator.random.RandomGenerableFactory;
@@ -74,30 +74,24 @@ extends RMatAlgorithmRunner {
 				directedGraph
 					.run(new org.apache.flink.graph.library.clustering.directed.GlobalClusteringCoefficient<>());
 
-				new ChecksumHashCode<>(env, directedGraph
+				new ChecksumHashCode().run(directedGraph
 					.run(new org.apache.flink.graph.library.clustering.directed.LocalClusteringCoefficient<>()));
 
-				directedGraph
-					.run(new org.apache.flink.graph.library.clustering.directed.TriangleCount<>());
-
-				new ChecksumHashCode<>(env, directedGraph
+				new ChecksumHashCode().run(directedGraph
 					.run(new org.apache.flink.graph.library.clustering.directed.TriangleListing<>()));
 
 				undirectedGraph
 					.run(new org.apache.flink.graph.library.clustering.undirected.GlobalClusteringCoefficient<>());
 
-				new ChecksumHashCode<>(env, undirectedGraph
+				new ChecksumHashCode().run(undirectedGraph
 					.run(new org.apache.flink.graph.library.clustering.undirected.LocalClusteringCoefficient<>()));
 
-				undirectedGraph
-					.run(new org.apache.flink.graph.library.clustering.undirected.TriangleCount<>());
-
-				new ChecksumHashCode<>(env, undirectedGraph
+				new ChecksumHashCode().run(undirectedGraph
 					.run(new org.apache.flink.graph.library.clustering.undirected.TriangleListing<>()));
 
 				// link analysis
 
-				new ChecksumHashCode<>(env, directedGraph
+				new ChecksumHashCode().run(directedGraph
 					.run(new org.apache.flink.graph.library.link_analysis.HITS<>(ITERATIONS)));
 
 				// metric
@@ -116,10 +110,10 @@ extends RMatAlgorithmRunner {
 
 				// similarity
 
-				new ChecksumHashCode<>(env, undirectedGraph
+				new ChecksumHashCode().run(undirectedGraph
 					.run(new org.apache.flink.graph.library.similarity.JaccardIndex<>()));
 
-				new ChecksumHashCode<>(env, undirectedGraph
+				new ChecksumHashCode().run(undirectedGraph
 					.run(new org.apache.flink.graph.library.similarity.AdamicAdar<>()));
 				} break;
 
